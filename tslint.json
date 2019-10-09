@@ -12,13 +12,19 @@
     "directive-selector": [
       true,
       "attribute",
-      "app",
+      [
+          "core",
+          ""
+      ],
       "camelCase"
     ],
     "component-selector": [
       true,
       "element",
-      "app",
+      [
+          "core",
+          ""
+      ],
       "kebab-case"
     ],
     "import-blacklist": [
@@ -84,7 +90,24 @@
     "template-banana-in-box": true,
     "template-no-negated-async": true,
     "use-lifecycle-interface": true,
-    "use-pipe-transform-interface": true
+    "use-pipe-transform-interface": true,
+    "one-line": [
+      true,
+      "check-open-brace",
+      "check-whitespace"
+    ],
+    "variable-name": [
+      true,
+      "ban-keywords",
+      "check-format",
+      "allow-pascal-case",
+      "allow-leading-underscore"
+    ],
+    "semicolon": [
+        true,
+        "never"
+    ],
+    "no-namespace": [true, "allow-declarations"]
   },
   "rulesDirectory": [
     "codelyzer"
