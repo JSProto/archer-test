@@ -1,0 +1,34 @@
+
+
+<mat-form-field appearance="outline">
+    <mat-label>Search...</mat-label>
+    <input matInput [formControl]="searchInput">
+    <button mat-button mat-icon-button matSuffix *ngIf="searchInput.value" (click)="searchInput.reset()">
+      <mat-icon>close</mat-icon>
+    </button>
+    <mat-icon matSuffix *ngIf="!searchInput.value">search</mat-icon>
+    <mat-hint>search by title</mat-hint>
+</mat-form-field>
+
+<nz-table #hitsTable [nzData]="display"
+
+  [nzFrontPagination]="false"
+  [nzShowPagination]="false"
+  [nzScroll]="{ y: '240px' }">
+    <thead>
+      <tr>
+        <th>title</th>
+        <th nzWidth="150px">URL</th>
+        <th nzWidth="150px">Created</th>
+        <th nzWidth="150px">Author</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of hitsTable.data" (click)="onClickRow(data)">
+        <td>{{ data.title }}</td>
+        <td>{{ data.url ? (data.url | slice:0:80) : '' }}</td>
+        <td>{{ data.created_at }}</td>
+        <td>{{ data.author | titlecase }}</td>
+      </tr>
+    </tbody>
+</nz-table>

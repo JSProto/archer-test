@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>{{ data.title }}</h1>
+
+<mat-dialog-content style="overflow: hidden;">
+  <textarea matInput style="width: 100%; height: 200px">
+    {{ data | json }}
+  </textarea>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>
