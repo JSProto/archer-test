@@ -11,13 +11,13 @@
 </mat-form-field>
 
 <nz-table #hitsTable [nzData]="display"
-
+  [nzLoading]="loading"
   [nzFrontPagination]="false"
   [nzShowPagination]="false"
   [nzScroll]="{ y: '240px' }">
     <thead>
       <tr>
-        <th>title</th>
+        <th>Title</th>
         <th nzWidth="150px">URL</th>
         <th nzWidth="150px">Created</th>
         <th nzWidth="150px">Author</th>

@@ -1,13 +1,17 @@
 import { Component, OnInit, OnDestroy } from '@angular/core'
 import { FormControl } from '@angular/forms'
-import { Hit } from './story.model'
-import { StoryService } from './story.service'
+import { MatDialog } from '@angular/material'
 import { timer, Subject } from 'rxjs'
-
 import { takeUntil } from 'rxjs/operators'
 
 import filter from 'lodash/filter'
-import { MatDialog } from '@angular/material'
+import uniqBy from 'lodash/uniqBy'
+
+
+import { Hit } from './story.model'
+import { StoryService } from './story.service'
+
+
 import { ModalDialogComponent } from './modal/modal.component'
 
 @Component({
@@ -20,6 +24,7 @@ export class StoryComponent implements OnInit, OnDestroy {
   public searchInput = new FormControl('')
   public hits: Hit[] = []
   public display: Hit[] = []
+  public loading = false
 
   private destroy$ = new Subject()
 
@@ -44,13 +49,18 @@ export class StoryComponent implements OnInit, OnDestroy {
   }
 
   refresh() {
+    this.loading = true
     this._storyService.fetch().subscribe((response) => {
-      this.hits = this.hits.concat(response.hits)
+      this.hits = uniqBy(this.hits.concat(response.hits), 'objectID')
       this.display = this.filter(this.hits, this.searchInput.value)
+      this.loading = false
     })
   }
 
   filter(data: Hit[], search: string) {
+    if (!search) {
+      return data
+    }
     return filter(data, (hit: Hit) => {
       return hit.title.toLowerCase().includes(search)
     })
